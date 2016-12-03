@@ -1,16 +1,16 @@
 // Battery geometry - measured
-BATT_WIDTH = 65.4;
-BATT_LENGTH = 151.0;
-BATT_NARROW_WIDTH = 61.2;
-BATT_NARROW_LENGTH = 147.2;
+BATT_WIDTH = 65.4 + 0.1;
+BATT_LENGTH = 151.0 + 0.1;
+BATT_NARROW_WIDTH = 61.2 + 0.1;
+BATT_NARROW_LENGTH = 147.2 + 0.1;
 BATT_NARROW_HEIGHT = 7;
 BATT_HEIGHT = 93.2;
 
 LIP_HEIGHT = 14;
 LIP_DEPTH = 2;
 LIP_TO_INSERT = 7.25;
-CORNER_WIDTH = 20;
-CORNER_LENGTH = 20.7;
+CORNER_WIDTH = 20 + 5;
+CORNER_LENGTH = 20.7 + 3;
 
 // VA meter geometry
 VA_WIDTH = 45;
@@ -27,6 +27,8 @@ AIR_GAP = 35;
 // Inferred
 bnwLedge = (BATT_WIDTH - BATT_NARROW_WIDTH)/2;
 bnlLedge = (BATT_LENGTH - BATT_NARROW_LENGTH)/2;
+
+scale([1,1,-1])
 
 difference() {
     // Solid cover
@@ -75,5 +77,7 @@ difference() {
         cube(size = [SW_HEIGHT, SW_WIDTH, 10]);
         
      // Substract hole for JST cords
-     !cylinder(r=4,h=10);
+     translate([50,0,LIP_HEIGHT+10])
+         rotate([0,90,90])
+            cylinder(r=4,h=10, center=true);
 }
