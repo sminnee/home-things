@@ -1,4 +1,4 @@
-$fa = 6;
+$fn = 50;
 
 // Ice mold for the nose cone of a projectile
 // Fits onto a PVC tube
@@ -8,6 +8,8 @@ INNER_RADIUS = 38.6/2; // Inner dimension of pipe
 WALL_THICKNESS = 2.2 + 0.3; // Thickness of pipe wall, including easing clearance
 OVERLAP = 10; // The size of the press-fit overlap onto the pipe
 CASING_THICKNESS = 2.2; // Thickness of material around the nose
+
+SQUEEZE = 0.3; // how much narrower does it get at the base?
 
 LENGTH_MULTIPLIER = 2; // Ratio between length and radius
 
@@ -35,7 +37,11 @@ module size_test() {
 
         // Cut the inner cylinder for the overlap
         translate([0,0,5])
-            cylinder(h=OVERLAP + epsilon, r=largeInnerRadius);
+            cylinder(
+                h=OVERLAP + epsilon,
+                r1=largeInnerRadius-SQUEEZE,
+                r2=largeInnerRadius
+            );
 
         // Cut the inner cylinder for the overlap
         cylinder(h=5, r=INNER_RADIUS);
@@ -60,7 +66,11 @@ module ice_mold() {
         }
         
         // Cut the inner cylinder for the overlap
-        cylinder(h=OVERLAP + epsilon, r=largeInnerRadius);
+        cylinder(
+            h=OVERLAP + epsilon,
+            r1=largeInnerRadius-SQUEEZE,
+            r2=largeInnerRadius
+        );
 
         // Cut the inner ellipsoid
         scale([1,1,LENGTH_MULTIPLIER])
