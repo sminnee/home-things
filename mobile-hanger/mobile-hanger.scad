@@ -3,23 +3,24 @@ thickness=5;
 woodSupport=75;
 wallSupport=80;
 
-mobile_hanger();
-//mobile_hook();
+//mobile_hanger();
+//mobile_hook([-5, 5]); // two holes
+mobile_hook([0]); // one hole
 
-module mobile_hook() {
+module mobile_hook(holes = [-5,5]) {
     difference() {
         offset=9;
            
         rounded_rect(x=woodWidth+2*thickness,y=offset+woodWidth+2*thickness,z=10, r=5);
         translate([0,offset/2,0])
             cube(size = [woodWidth,woodWidth,10+0.01], center=true );
-        for(dX=[-5,5]) {
+        for(dX=holes) {
             translate([dX,-offset,0])
                 cylinder(r=3,h=8,center=true, $fs=1);
             translate([dX,-offset,5])
-                cylinder(r1=3, r2=4, h=2.01, center=true, $fs=1);
+                cylinder(r1=3, r2=5, h=2.01, center=true, $fs=1);
             translate([dX,-offset,-5])
-                cylinder(r1=4, r2=3, h=2.01,center=true, $fs=1);
+                cylinder(r1=5, r2=3, h=2.01,center=true, $fs=1);
         }
     }
 }    
