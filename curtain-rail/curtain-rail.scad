@@ -1,3 +1,5 @@
+$fa = 6;
+
 DOWEL_R = 28/2 + 0.5;
 DEPTH = 30;
 HEIGHT = 100;
@@ -13,10 +15,10 @@ difference() {
             truncated_rounded_cube(size=[HEIGHT, THICK, DEPTH], a=45, r=10);
 
         // Truncate rounded front plate
-
-        translate([-DOWEL_R*2,-DOWEL_R*2 - THICK,0])
+        translate([-DOWEL_R*2,-DOWEL_R*2 - THICK,0]) {
             truncated_rounded_cube(size=[DOWEL_R*2, THICK, DEPTH], a=45, r=10);
-
+            translate([10,0,0]) cube(size=[DOWEL_R*2 - 10, THICK, DEPTH]);
+        }
     }
     
     // Truncate rounded corners (this prevents unprintable overhangs)
@@ -42,7 +44,7 @@ module screw_hole() {
     r1=2.8;
     r2=5;
     d1=30;
-    d2=4;
+    d2=2.5;
     union() {
         translate([0,0,-d1/2])
         cylinder(h=d1, r=r1, center=true, $fs=1);
