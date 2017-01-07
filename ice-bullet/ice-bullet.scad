@@ -9,7 +9,7 @@ WALL_THICKNESS = 2.2 + 0.3; // Thickness of pipe wall, including easing clearanc
 OVERLAP = 10; // The size of the press-fit overlap onto the pipe
 CASING_THICKNESS = 2.2; // Thickness of material around the nose
 
-SQUEEZE = 0.3; // how much narrower does it get at the base?
+SQUEEZE = 0.2; // how much narrower does it get at the base?
 
 LENGTH_MULTIPLIER = 2; // Ratio between length and radius
 
@@ -45,6 +45,21 @@ module size_test() {
 
         // Cut the inner cylinder for the overlap
         cylinder(h=5, r=INNER_RADIUS);
+
+/*
+        // Etch text
+        difference() {
+            translate([0,0,7.5]) rotate([90,0,0])
+                linear_extrude(height=100)
+                    scale(0.4) 
+                        text("BAITZOOKA",
+                            font="Liberation Sans:style=Bold",
+                            halign="center", valign="center");
+            
+            // This ensures etching depth is constant 0.5mm
+            cylinder(h=200, r = outerRadius - 0.5, center=true);
+        }
+*/
     }
 
 }
@@ -78,6 +93,19 @@ module ice_mold() {
         // Remove top half
         translate([0,0,100 + OVERLAP])
             cube(size=[200,200,200], center=true);
-        // Remove point of outer ellipsoid
+        
+        // Etch text
+        difference() {
+            translate([0,0,-totalHeight + baseHeight/2]) rotate([90,0,0])
+                linear_extrude(height=100)
+                    scale(0.4) 
+                        text("BAITZOOKA",
+                            font="Liberation Sans:style=Bold",
+                            halign="center", valign="center");
+            
+            // This ensures etching depth is constant 0.5mm
+            cylinder(h=200, r = outerRadius - 0.5, center=true);
+        }
+
     }
 }
